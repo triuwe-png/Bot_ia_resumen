@@ -1,0 +1,1 @@
+Carpeta para archivos subidos por los usuarios. No subir a GitHub.

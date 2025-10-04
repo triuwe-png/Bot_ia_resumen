@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Bot IA Resumidos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Bot IA Resumidos</h1>
+        <p class="subtitle">Sube un PDF o DOCX o pega texto — genera resúmenes con IA</p>
+
+        <form method="POST" enctype="multipart/form-data" class="main-form">
+            <textarea name="texto" placeholder="Pega aquí tu texto..."></textarea>
+
+            <div class="file-section">
+                <label>📄 O sube un archivo (PDF o DOCX):</label>
+                <input type="file" name="archivo" accept=".pdf, .docx">
+            </div>
+
+            <div class="controls">
+                <select name="nivel">
+                    <option value="corto">Resumen corto</option>
+                    <option value="medio">Resumen medio</option>
+                    <option value="detallado">Resumen detallado</option>
+                </select>
+                <button type="submit" class="generate">Generar resumen</button>
+            </div>
+        </form>
+
+        {% if resumen %}
+        <div class="resultado">
+            <h3>✂️ Resumen generado{% if origen %} — {{ origen }}{% endif %}:</h3>
+            <pre id="resumenText">{{ resumen }}</pre>
+
+            <form method="POST" action="/download" class="download-form" onsubmit="return attachResumen()">
+                <label for="filename">Nombre del archivo (ej: resumen_reunion.txt):</label>
+                <input id="filename" name="filename" placeholder="resumen.txt">
+
+                <input type="hidden" id="resumen_field" name="resumen_text" value="">
+
+                <button type="submit" class="download-btn">💾 Descargar resumen</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <footer>
+            <p>Hecho con 💚 por David Castaño</p>
+        </footer>
+    </div>
+
+<script>
+function attachResumen() {
+    const resumen = document.getElementById('resumenText');
+    const campo = document.getElementById('resumen_field');
+    if (!resumen) return false;
+    campo.value = resumen.innerText.trim();
+    return true;
+}
+</script>
+</body>
+</html>
