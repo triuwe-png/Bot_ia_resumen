@@ -1,7 +1,0 @@
-flask
-openai
-python-dotenv
-PyPDF2
-python-docx
-werkzeug
-gunicorn
