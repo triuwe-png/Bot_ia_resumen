@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from fastapi import FastAPI, render_template, request, make_response
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
@@ -14,7 +14,7 @@ if not OPENAI_KEY:
 
 client = OpenAI(api_key=OPENAI_KEY)
 
-app = Flask(__name__)
+app = FastAPI(__name__)
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
